@@ -1,20 +1,13 @@
 version: '3.8'
 
 services:
-  dashboard:
-    # On remonte d'un niveau pour trouver le Dockerfile et le code
-    build: 
-      context: ..
-      dockerfile: INFRA/Dockerfile # Si tu déplaces le Dockerfile dans INFRA
+  parkshare-app:
+    build:
+      context: ..          # On dit à Docker de regarder un niveau au-dessus (la racine Parkshare)
+      dockerfile: INFRA/Dockerfile
+    container_name: parkshare_container
     ports:
-      - "80:8501"
+      - "80:8501"          # Port 80 de la VM -> Port 8501 de Streamlit
     volumes:
-      - ..:/app # On monte tout le projet pour que Python voit DATA et DEV
+      - ..:/app            # Synchronise ton code pour les modifs en direct
     restart: always
-
-  database:
-    image: postgres:latest
-    environment:
-      POSTGRES_PASSWORD: parkshare_password
-    volumes:
-      - ./postgres_data:/var/lib/postgresql/data
