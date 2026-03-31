@@ -2,6 +2,7 @@ streamlit
 folium
 streamlit-folium
 pandas
+duckdb
 branca
 matplotlib
 seaborn

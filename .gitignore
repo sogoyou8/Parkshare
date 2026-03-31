@@ -34,4 +34,5 @@ env/
 Thumbs.db
 
 # Generated local export
-DATA/donnees_clean_idf.csv
+DATA/parkshare.duckdb
+DEV_PITCH.md
