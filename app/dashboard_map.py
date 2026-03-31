@@ -234,37 +234,78 @@ def apply_dashboard_theme() -> None:
         }
 
         .kpi-card {
-            border: 1px solid var(--ps-line);
-            border-radius: 14px;
-            background: var(--ps-card);
-            box-shadow: 0 10px 22px rgba(33, 47, 61, 0.08);
-            padding: 10px 12px;
-            min-height: 72px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(31, 43, 55, 0.12);
+            border-radius: 16px;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.98) 0%,
+                rgba(214, 236, 229, 0.6) 55%,
+                rgba(251, 219, 193, 0.35) 100%
+            );
+            box-shadow: 0 14px 26px rgba(33, 47, 61, 0.12);
+            padding: 12px 14px 14px;
+            min-height: 86px;
+        }
+
+        .kpi-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 0% 0%, rgba(11, 107, 91, 0.18), transparent 55%);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .kpi-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 100%;
+            background: linear-gradient(90deg, #0b6b5b, #6fb9a4, #f0c9a5);
+            opacity: 0.85;
+        }
+
+        .kpi-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .kpi-label {
             margin: 0;
-            color: var(--ps-muted);
-            font-size: 0.72rem;
+            color: #46545f;
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.14em;
         }
 
         .kpi-value {
-            margin-top: 6px;
-            margin-bottom: 2px;
+            margin-top: 8px;
+            margin-bottom: 4px;
             color: var(--ps-ink);
-            font-size: 1.15rem;
+            font-family: 'Fraunces', 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
             font-weight: 700;
-            line-height: 1.1;
+            letter-spacing: 0.02em;
+            line-height: 1.05;
         }
 
         .kpi-note {
             margin: 0;
-            color: #7d8b93;
-            font-size: 0.74rem;
-            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(11, 107, 91, 0.1);
+            color: #0b6b5b;
+            border: 1px solid rgba(11, 107, 91, 0.2);
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
         }
 
         .stTabs [data-baseweb="tab-list"] {
@@ -291,16 +332,83 @@ def apply_dashboard_theme() -> None:
             background: #f6efe6 !important;
             border-radius: 12px !important;
             border: 1px solid rgba(31, 43, 55, 0.12) !important;
+            color: var(--ps-ink) !important;
+        }
+
+        div[data-baseweb="select"] span,
+        div[data-baseweb="select"] input {
+            color: var(--ps-ink) !important;
         }
 
         div[data-testid="stNumberInput"] input {
             background: #f6efe6 !important;
             border-radius: 12px !important;
             border: 1px solid rgba(31, 43, 55, 0.12) !important;
+            color: var(--ps-ink) !important;
+        }
+
+        div[data-testid="stNumberInput"] input::placeholder {
+            color: #66747d !important;
         }
 
         div[data-baseweb="slider"] > div > div {
             color: var(--ps-brand);
+        }
+
+        div[data-testid="stExpander"] > details {
+            background: #f6efe6;
+            border-radius: 12px;
+            border: 1px solid rgba(31, 43, 55, 0.12);
+        }
+
+        div[data-testid="stExpander"] > details > summary {
+            color: var(--ps-ink);
+            font-weight: 700;
+            background: #f1e6d8;
+            border-radius: 10px;
+        }
+
+        div[data-testid="stExpander"] > details > summary span {
+            color: var(--ps-ink) !important;
+        }
+
+        div[data-testid="stExpander"] > details > summary svg {
+            color: var(--ps-ink) !important;
+            fill: var(--ps-ink) !important;
+        }
+
+        div[data-testid="stExpander"] > details > summary:hover {
+            background: #e9ddce;
+        }
+
+        div[data-testid="stExpander"] div[role="button"] {
+            color: var(--ps-ink) !important;
+        }
+
+        div[data-testid="stExpander"] div[role="button"] * {
+            color: var(--ps-ink) !important;
+        }
+
+        div[data-testid="stCheckbox"] label,
+        div[data-testid="stCheckbox"] label span {
+            color: var(--ps-ink) !important;
+        }
+
+        div[data-testid="stExpander"] div[data-testid="stCheckbox"] label,
+        div[data-testid="stExpander"] div[data-testid="stCheckbox"] label span {
+            color: var(--ps-ink) !important;
+            opacity: 1 !important;
+        }
+
+        div[data-testid="stCheckbox"] {
+            background: #f6efe6;
+            border: 1px solid rgba(31, 43, 55, 0.12);
+            border-radius: 10px;
+            padding: 6px 10px;
+        }
+
+        div[data-testid="stCheckbox"] input {
+            accent-color: var(--ps-brand);
         }
 
         div[data-testid="stDataFrame"] {
@@ -310,12 +418,23 @@ def apply_dashboard_theme() -> None:
             box-shadow: 0 8px 20px rgba(33, 47, 61, 0.07);
         }
 
-        div[data-testid="stVegaLiteChart"] > div {
-            border-radius: 14px;
+        div[data-testid="stVegaLiteChart"] {
+            border-radius: 16px;
             border: 1px solid rgba(31, 43, 55, 0.15);
             box-shadow: 0 10px 20px rgba(17, 21, 28, 0.12);
-            padding: 6px;
             background: #11151c;
+            overflow: hidden;
+        }
+
+        div[data-testid="stVegaLiteChart"] > div {
+            border-radius: 16px;
+            padding: 6px;
+            overflow: hidden;
+        }
+
+        div[data-testid="stVegaLiteChart"] canvas,
+        div[data-testid="stVegaLiteChart"] svg {
+            border-radius: 14px;
         }
 
         div[data-testid="stIFrame"] {
@@ -486,56 +605,62 @@ with tab_overview:
 
     with side_container:
         st.markdown('<div class="side-scroll-marker"></div>', unsafe_allow_html=True)
-        st.markdown('<div class="panel-title">Filtres & affichage</div>', unsafe_allow_html=True)
-        st.markdown(
-            '<div class="panel-subtitle">Ajuste les seuils, puis explore la carte.</div>',
-            unsafe_allow_html=True,
-        )
-        chips_html = " ".join(
-            [
-                f"<span class='filter-chip'>Population {format_float(normalized_weights['population'] * 100, 1)}%</span>",
-                f"<span class='filter-chip'>Logements {format_float(normalized_weights['logements'] * 100, 1)}%</span>",
-                f"<span class='filter-chip'>Taux RP {format_float(normalized_weights['taux_rp'] * 100, 1)}%</span>",
-            ]
-        )
-        st.markdown(chips_html, unsafe_allow_html=True)
+        tab_filters, tab_summary = st.tabs(["Filtres", "Synthese"])
 
-        departements_disponibles = sorted(scored_data["departement_code"].astype(str).unique().tolist())
-        deps_selectionnes = st.multiselect(
-            "Departements",
-            options=departements_disponibles,
-            default=departements_disponibles,
-        )
-
-        col_a, col_b = st.columns(2)
-        with col_a:
-            score_min = st.slider("Score minimum", min_value=0, max_value=100, value=55, step=5)
-            taux_rp_min = st.slider(
-                "Taux RP minimum",
-                min_value=0.0,
-                max_value=1.0,
-                value=0.40,
-                step=0.05,
+        with tab_filters:
+            st.markdown('<div class="panel-title">Filtres & affichage</div>', unsafe_allow_html=True)
+            st.markdown(
+                '<div class="panel-subtitle">Ajuste les seuils, puis explore la carte.</div>',
+                unsafe_allow_html=True,
             )
-        with col_b:
-            pop_min = st.number_input(
-                "Population minimale",
-                min_value=0,
-                max_value=int(scored_data["population"].max()),
-                value=10000,
-                step=10000,
+            chips_html = " ".join(
+                [
+                    f"<span class='filter-chip'>Population {format_float(normalized_weights['population'] * 100, 1)}%</span>",
+                    f"<span class='filter-chip'>Logements {format_float(normalized_weights['logements'] * 100, 1)}%</span>",
+                    f"<span class='filter-chip'>Taux RP {format_float(normalized_weights['taux_rp'] * 100, 1)}%</span>",
+                ]
             )
-            max_points = st.slider("Max points carte", min_value=200, max_value=2000, value=900, step=100)
+            st.markdown(chips_html, unsafe_allow_html=True)
 
-        with st.expander("Options carte", expanded=False):
-            fond_carte = st.selectbox(
-                "Fond de carte",
-                options=["CartoDB Positron", "OpenStreetMap", "CartoDB dark_matter"],
-                index=0,
+            departements_disponibles = sorted(scored_data["departement_code"].astype(str).unique().tolist())
+            deps_selectionnes = st.multiselect(
+                "Departements",
+                options=departements_disponibles,
+                default=departements_disponibles,
             )
-            afficher_choropleth = st.checkbox("Afficher choropleth departement", value=True)
 
-        hauteur_carte = 400
+            col_a, col_b = st.columns(2)
+            with col_a:
+                score_min = st.slider("Score minimum", min_value=0, max_value=100, value=55, step=5)
+                taux_rp_min = st.slider(
+                    "Taux RP minimum",
+                    min_value=0.0,
+                    max_value=1.0,
+                    value=0.40,
+                    step=0.05,
+                )
+            with col_b:
+                pop_min = st.number_input(
+                    "Population minimale",
+                    min_value=0,
+                    max_value=int(scored_data["population"].max()),
+                    value=10000,
+                    step=10000,
+                )
+                max_points = st.slider("Max points carte", min_value=200, max_value=2000, value=900, step=100)
+
+            with st.expander("Options carte", expanded=False):
+                fond_carte = st.selectbox(
+                    "Fond de carte",
+                    options=["CartoDB Positron", "OpenStreetMap", "CartoDB dark_matter"],
+                    index=0,
+                )
+                afficher_choropleth = st.checkbox("Afficher choropleth departement", value=True)
+
+            hauteur_carte = 400
+
+        with tab_summary:
+            summary_container = st.container()
 
     donnees_filtrees = scored_data[
         (scored_data["score"] >= score_min)
@@ -564,7 +689,6 @@ with tab_overview:
         palette = ["#eff6f2", "#cfe7db", "#9ad0bb", "#5ab08d", "#1f6f5a"]
         color_scale = cm.LinearColormap(colors=palette, vmin=score_min_dep, vmax=score_max_dep)
 
-        # Render fill layer as non-interactive so markers remain easy to click.
         folium.GeoJson(
             geojson_stats,
             name="Choropleth departement",
@@ -572,28 +696,12 @@ with tab_overview:
                 "fillColor": color_scale(float(feature["properties"].get("score_moyen", 0.0))),
                 "color": "#64748b",
                 "weight": 1.0,
-                "fillOpacity": 0.28,
-                "interactive": False,
+                "fillOpacity": 0.32,
+                "interactive": True,
             },
             highlight_function=lambda _: {
-                "fillOpacity": 0.3,
-                "weight": 1.2,
-            },
-        ).add_to(carte)
-
-        folium.GeoJson(
-            geojson_stats,
-            name="Infos departement",
-            style_function=lambda _: {
-                "fill": False,
-                "color": "#334155",
+                "fillOpacity": 0.4,
                 "weight": 2.0,
-                "opacity": 0.95,
-            },
-            highlight_function=lambda _: {
-                "color": "#0f766e",
-                "weight": 3.0,
-                "opacity": 1.0,
             },
             tooltip=folium.GeoJsonTooltip(
                 fields=[
@@ -705,7 +813,7 @@ with tab_overview:
         format_int(float(donnees_filtrees["population"].sum())) if not donnees_filtrees.empty else "0"
     )
 
-    with side_container:
+    with summary_container:
         render_info_card(
             "Filtres actifs",
             [
