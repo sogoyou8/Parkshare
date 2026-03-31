@@ -63,4 +63,5 @@ Optimisation Python : Utilisation d'images Docker slim pour réduire l'empreinte
 
 🌐 Accès Public
 L'application est accessible à l'adresse suivante :
+http://parkshare-ynov.duckdns.org
 https://parkshare-ynov.duckdns.org
