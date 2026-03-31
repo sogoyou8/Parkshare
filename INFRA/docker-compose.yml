@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: always
+    ports:
+      - '80:80'      # Port HTTP standard
+      - '81:81'      # Port de l'interface d'administration de NPM
+      - '443:443'    # Port HTTPS standard
+    volumes:
+      - ./npm/data:/data
+      - ./npm/letsencrypt:/etc/letsencrypt
+
+  parkshare-app:
+    build:
+      context: ..
+      dockerfile: INFRA/Dockerfile
+    container_name: parkshare_container
+    expose:
+      - "8501"
+    restart: always
