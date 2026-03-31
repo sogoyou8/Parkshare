@@ -37,6 +37,7 @@ def apply_dashboard_theme() -> None:
             --ps-brand-soft: #d6ece5;
             --ps-warm: #c76b3a;
             --ps-night: #11151c;
+            --ps-map-height: clamp(420px, 62vh, 720px);
         }
 
         .stApp {
@@ -46,14 +47,30 @@ def apply_dashboard_theme() -> None:
                 radial-gradient(circle at 35% 35%, rgba(255,255,255,0.75) 0%, transparent 35%),
                 linear-gradient(180deg, var(--ps-bg) 0%, var(--ps-bg-soft) 100%);
             color: var(--ps-ink);
+            min-height: 100vh;
         }
 
         html, body, [class*="css"] {
             font-family: 'Space Grotesk', sans-serif;
         }
 
+        html, body {
+            height: 100%;
+        }
+
+        div[data-testid="stAppViewContainer"] {
+            height: auto;
+            min-height: 100vh;
+            overflow: visible;
+        }
+
+        section.main {
+            overflow: visible;
+        }
+
         body {
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         header[data-testid="stHeader"] {
@@ -196,23 +213,23 @@ def apply_dashboard_theme() -> None:
             display: none;
         }
 
-        div[data-testid="stVerticalBlock"]:has(.side-scroll-marker) {
+        div[data-testid="stVerticalBlock"]:has(> div > .side-scroll-marker) {
             border: 1px solid var(--ps-line);
             border-radius: 16px;
             background: rgba(255, 252, 246, 0.96);
             box-shadow: 0 12px 26px rgba(33, 47, 61, 0.09);
             padding: 12px 14px;
-            max-height: 520px;
+            max-height: var(--ps-map-height);
             overflow-y: auto;
         }
 
-        div[data-testid="stVerticalBlock"]:has(.tables-scroll-marker) {
+        div[data-testid="stVerticalBlock"]:has(> div > .tables-scroll-marker) {
             border: 1px solid var(--ps-line);
             border-radius: 16px;
             background: rgba(255, 252, 246, 0.96);
             box-shadow: 0 12px 26px rgba(33, 47, 61, 0.09);
             padding: 12px 14px;
-            max-height: 540px;
+            max-height: min(72vh, 680px);
             overflow-y: auto;
         }
 
@@ -301,6 +318,14 @@ def apply_dashboard_theme() -> None:
             background: #11151c;
         }
 
+        div[data-testid="stIFrame"] {
+            height: var(--ps-map-height) !important;
+        }
+
+        div[data-testid="stIFrame"] iframe {
+            height: 100% !important;
+        }
+
         .stDownloadButton button {
             background: linear-gradient(135deg, #0f6a5a 0%, #17836f 100%);
             color: #ffffff;
@@ -316,8 +341,11 @@ def apply_dashboard_theme() -> None:
         }
 
         .block-container {
-            padding-top: 0.4rem;
-            padding-bottom: 0.4rem;
+            max-width: 100%;
+            padding-top: 0.5rem;
+            padding-bottom: 0.8rem;
+            padding-left: clamp(1rem, 3vw, 2.5rem);
+            padding-right: clamp(1rem, 3vw, 2.5rem);
         }
         </style>
         """,
@@ -711,6 +739,7 @@ with tab_overview:
         with kpi_col2:
             render_kpi_card("Communes affichees", str(len(donnees_affichage)), "limite carte")
             render_kpi_card("Population", population_totale_affichage, "total perimetre")
+
 weights_df = pd.DataFrame(
     {
         "composante": ["Population", "Logements", "Taux RP"],
