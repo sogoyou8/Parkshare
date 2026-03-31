@@ -1,23 +1,35 @@
 version: '3.8'
 
 services:
+  # 1. REVERSE PROXY (Nginx Proxy Manager)
+  # Gère l'accès public, le HTTPS (Let's Encrypt) et les WebSockets
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     container_name: nginx-proxy-manager
     restart: always
     ports:
-      - '80:80'      # Port HTTP standard
-      - '81:81'      # Port de l'interface d'administration de NPM
-      - '443:443'    # Port HTTPS standard
+      - '80:80'   # Port HTTP standard 
+      - '81:81'   # Interface d'administration
+      - '443:443' # Port HTTPS sécurisé
     volumes:
       - ./npm/data:/data
       - ./npm/letsencrypt:/etc/letsencrypt
 
+  # 2. APPLICATION DASHBOARD (Streamlit)
+  # Conteneurise l'application Streamlit du dossier app avec base DuckDB
   parkshare-app:
     build:
       context: ..
       dockerfile: INFRA/Dockerfile
     container_name: parkshare_container
-    expose:
-      - "8501"
     restart: always
+    expose:
+      - "8501" # Port interne Streamlit, non exposé directement à l'extérieur
+    volumes:
+      # Volume pour la base DuckDB : permet la persistance des données
+      - ./db_data:/app/database 
+    environment:
+      # Utilisation d'une variable d'environnement pour le chemin de la base DuckDB
+      - DATABASE_PATH=${DATABASE_PATH}
+    depends_on:
+      - npm
