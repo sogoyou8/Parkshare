@@ -1,13 +1,24 @@
 version: '3.8'
 
 services:
+  npm:
+    image: 'jc21/nginx-proxy-manager:latest'
+    container_name: nginx-proxy-manager
+    restart: always
+    ports:
+      - '80:80'      # Port HTTP standard
+      - '81:81'      # Port de l'interface d'administration de NPM
+      - '443:443'    # Port HTTPS standard
+    volumes:
+      - ./npm/data:/data
+      - ./npm/letsencrypt:/etc/letsencrypt
+
   parkshare-app:
     build:
-      context: ..          # On dit à Docker de regarder un niveau au-dessus (la racine Parkshare)
+      context: ..
       dockerfile: INFRA/Dockerfile
     container_name: parkshare_container
-    ports:
-      - "80:8501"          # Port 80 de la VM -> Port 8501 de Streamlit
-    volumes:
-      - ..:/app            # Synchronise ton code pour les modifs en direct
+    # On enlève le port 80 ici car c'est NPM qui va s'en charger !
+    expose:
+      - "8501"
     restart: always
